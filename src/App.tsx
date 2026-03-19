@@ -17,15 +17,15 @@ import {
 import { complianceChecklist } from './data';
 import './App.css';
 
-// 1. Consolidated Compliance Categories
+// 1. Consolidated Compliance Categories (SWAPPED Resilience and Lifecycle)
 const complianceGroups = [
   {
-    id: 'resilience',
-    name: 'Operational Resilience',
+    id: 'lifecycle',
+    name: 'System Lifecycle Security',
     icon: <Radar size={22} />,
     section: 'roof',
-    x: 400, y: 60,
-    requirements: ['NIST-RECOVERY', 'NIST-ID.RA']
+    x: 400, y: 55,
+    requirements: ['PCI-6.3']
   },
   {
     id: 'identity',
@@ -44,12 +44,12 @@ const complianceGroups = [
     requirements: ['PCI-3.5', 'GLBA-SAFEGUARD']
   },
   {
-    id: 'lifecycle',
-    name: 'System Lifecycle Security',
+    id: 'resilience',
+    name: 'Operational Resilience',
     icon: <ShieldAlert size={22} />,
     section: 'foundation',
     x: 400, y: 420,
-    requirements: ['PCI-6.3']
+    requirements: ['NIST-RECOVERY', 'NIST-ID.RA']
   },
   {
     id: 'privacy',
@@ -77,35 +77,34 @@ const Bank2DMap = ({
       <div className="blueprint-grid" />
       
       <svg viewBox="20 -20 860 480" className="bank-svg-map">
-        {/* 1. Operational Resilience (Roof + Satellite Dish) */}
+        {/* 1. System Lifecycle (Roof + Signal Tower) */}
         <g className={`arch-group ${activeSection === 'roof' ? 'highlight' : ''}`}>
           <polygon points="400,50 100,150 700,150" className="arch-part" />
           <rect x="120" y="150" width="560" height="40" className="arch-part" />
           {/* Building Label */}
           <text x="400" y="176" textAnchor="middle" fill="currentColor" style={{ fontSize: '18px', fontWeight: '800', letterSpacing: '4px', opacity: 0.9 }} className="arch-part">MIDWEST CENTRAL BANK</text>
           
-          {/* Satellite Dish Mount */}
-          <line x1="400" y1="50" x2="400" y2="30" className="arch-part" />
-          {/* Satellite Dish (Parabola) */}
-          <path 
-            d="M 360,20 Q 400,60 440,20" 
-            className="arch-part" 
-            fill="none" 
-            transform="rotate(-20, 400, 40)"
-          />
-          {/* Signal Transmitter */}
-          <line x1="407" y1="33" x2="425" y2="5" className="arch-part" />
-          <circle cx="425" cy="5" r="3" className="arch-part" />
-          
-          {/* Scanning Beams (Circular Signal) */}
-          {[10, 25, 40].map((r, i) => (
-            <circle 
+          {/* Signal Tower Mast */}
+          <line x1="400" y1="50" x2="400" y2="5" className="arch-part" />
+          {/* Signal Bars (Horizontal) */}
+          {[12, 22, 32, 42].map((yOffset, i) => (
+            <line 
               key={i}
-              cx="425" cy="5" r={r}
-              className={`arch-part ${activeSection === 'roof' ? 'pulse-fast' : ''}`}
+              x1={400 - (6 + i * 4)} y1={50 - yOffset} 
+              x2={400 + (6 + i * 4)} y2={50 - yOffset} 
+              className={`arch-part signal-bar`}
+              style={{ animationDelay: `${i * 0.2}s` } as any}
+            />
+          ))}
+          {/* Tower Tip and Signal Arcs */}
+          <circle cx="400" cy="5" r="2" className="arch-part" />
+          {[1, 2, 3].map((i) => (
+            <path 
+              key={i}
+              d={`M ${400 - i*6},${5 - i*2} A ${i*6},${i*6} 0 0 1 ${400 + i*6},${5 - i*2}`}
+              className="arch-part signal-arc"
+              style={{ animationDelay: `${i * 0.4}s` } as any}
               fill="none"
-              strokeDasharray="4 4"
-              opacity={0.5}
             />
           ))}
         </g>
@@ -148,7 +147,7 @@ const Bank2DMap = ({
           <rect x="320" y="260" width="10" height="90" className="arch-part" />
         </g>
 
-        {/* 4. System Lifecycle (Foundation + Server Racks) */}
+        {/* 4. Operational Resilience (Foundation + Server Racks) */}
         <g className={`arch-group ${activeSection === 'foundation' ? 'highlight' : ''}`}>
           <rect x="80" y="390" width="640" height="20" className="arch-part" />
           <rect x="60" y="410" width="680" height="20" className="arch-part" />

@@ -188,11 +188,12 @@
 .bank-diagram-2d {
   width: 100%;
   max-width: 1200px;
-  height: 100%;
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 1rem;
+  min-height: 0;
 }
 
 .bank-blueprint-container {
@@ -247,6 +248,35 @@
 
 .pulse-fast {
   animation: radar-pulse 1s infinite;
+}
+
+.signal-bar {
+  opacity: 0.3;
+}
+
+.arch-group.highlight .signal-bar {
+  animation: signal-bar-flow 1.5s infinite;
+}
+
+@keyframes signal-bar-flow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; stroke-width: 2; }
+}
+
+.signal-arc {
+  opacity: 0;
+  stroke-width: 1;
+}
+
+.arch-group.highlight .signal-arc {
+  animation: signal-arc-out 2s infinite;
+  transform-origin: 400px 5px;
+}
+
+@keyframes signal-arc-out {
+  0% { opacity: 0; transform: translateY(0) scale(0.5); }
+  30% { opacity: 0.6; }
+  100% { opacity: 0; transform: translateY(-15px) scale(1.5); }
 }
 
 @keyframes radar-pulse {
@@ -551,7 +581,18 @@
 .data-stream { display: flex; justify-content: flex-end; gap: 2rem; font-size: 0.7rem; }
 .stream-item { display: flex; align-items: center; gap: 0.5rem; }
 
-.instruction { margin-top: 1rem; font-size: 0.7rem; color: var(--neon-blue); letter-spacing: 2px; opacity: 0.4; }
+.instruction { 
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.7rem; 
+  color: var(--neon-blue); 
+  letter-spacing: 2px; 
+  opacity: 0.4; 
+  white-space: nowrap;
+  pointer-events: none;
+}
 
 @media (max-width: 900px) {
   .cyber-footer { grid-template-columns: 1fr; height: auto; padding: 1rem; }
