@@ -17,7 +17,7 @@ import {
 import { complianceChecklist } from './data';
 import './App.css';
 
-// 1. Consolidated Compliance Categories (SWAPPED Resilience and Lifecycle)
+// 1. Consolidated Compliance Categories
 const complianceGroups = [
   {
     id: 'lifecycle',
@@ -132,19 +132,24 @@ const Bank2DMap = ({
 
         {/* 3. Vault Door (Encryption & Cryptography) */}
         <g className={`arch-group ${activeSection === 'vault' ? 'highlight' : ''}`}>
-          <circle cx="400" cy="305" r="70" className="arch-part" />
-          <circle cx="400" cy="305" r="60" className="arch-part" />
-          <circle cx="400" cy="305" r="15" className="arch-part" />
-          {[0, 45, 90, 135, 180, 225, 270, 315].map(angle => (
-            <line 
-              key={angle}
-              x1="400" y1="305" 
-              x2={400 + 45 * Math.cos(angle * Math.PI / 180)} 
-              y2={305 + 45 * Math.sin(angle * Math.PI / 180)} 
-              className="arch-part"
-            />
-          ))}
+          <rect x="330" y="235" width="140" height="140" className="arch-part" opacity="0.1" fill="currentColor" />
           <rect x="320" y="260" width="10" height="90" className="arch-part" />
+          <g className="vault-door-group">
+            <circle cx="400" cy="305" r="70" className="arch-part" fill="rgba(0,0,0,0.8)" />
+            <circle cx="400" cy="305" r="60" className="arch-part" />
+            <g className="vault-wheel">
+              <circle cx="400" cy="305" r="15" className="arch-part" />
+              {[0, 45, 90, 135, 180, 225, 270, 315].map(angle => (
+                <line 
+                  key={angle}
+                  x1="400" y1="305" 
+                  x2={400 + 45 * Math.cos(angle * Math.PI / 180)} 
+                  y2={305 + 45 * Math.sin(angle * Math.PI / 180)} 
+                  className="arch-part"
+                />
+              ))}
+            </g>
+          </g>
         </g>
 
         {/* 4. Operational Resilience (Foundation + Server Racks) */}
@@ -152,7 +157,6 @@ const Bank2DMap = ({
           <rect x="80" y="390" width="640" height="20" className="arch-part" />
           <rect x="60" y="410" width="680" height="20" className="arch-part" />
           <rect x="40" y="430" width="720" height="20" className="arch-part" />
-          {/* Server LED Details */}
           {[120, 240, 360, 480, 600].map((x, i) => (
             <g key={i}>
               <circle cx={x} cy="400" r="1.5" className="arch-part LED-dot" />
@@ -164,15 +168,10 @@ const Bank2DMap = ({
 
         {/* 5. Data Privacy (ATM outside bank) */}
         <g className={`arch-group ${activeSection === 'archive' ? 'highlight' : ''}`}>
-          {/* ATM Label */}
           <text x="120" y="270" textAnchor="middle" fill="currentColor" style={{ fontSize: '14px', fontWeight: 'bold', opacity: 0.8 }} className="arch-part">ATM</text>
-          {/* ATM Body */}
           <rect x="90" y="280" width="60" height="110" className="arch-part" />
-          {/* Screen */}
           <rect x="98" y="295" width="44" height="30" className="arch-part" />
-          {/* Keypad area */}
           <rect x="102" y="335" width="36" height="15" className="arch-part" />
-          {/* Cash Slot */}
           <line x1="102" y1="365" x2="138" y2="365" className="arch-part" />
           <rect x="110" y="362" width="20" height="6" className="arch-part" />
         </g>
@@ -180,7 +179,6 @@ const Bank2DMap = ({
         {/* Interactive Primary Nodes */}
         {complianceGroups.map(group => {
           const isHovered = hoveredGroup === group.id;
-          
           return (
             <g 
               key={group.id}
@@ -196,7 +194,6 @@ const Bank2DMap = ({
                   {group.icon}
                 </div>
               </foreignObject>
-              
               {isHovered && (
                 <foreignObject x={group.x + 35} y={group.y - 25} width="240" height="50">
                   <div className="node-label-2d">
@@ -238,7 +235,6 @@ const App: React.FC = () => {
       <div className="noise" />
       <div className="grid-overlay" />
 
-      {/* Header */}
       <header className="cyber-header">
         <div className="glitch-wrapper">
           <h1 className="glitch" data-text="MIDWEST CENTRAL BANK">MIDWEST CENTRAL BANK</h1>
@@ -254,7 +250,6 @@ const App: React.FC = () => {
         </div>
       </header>
 
-      {/* Main Stage */}
       <main className="stage-wrapper">
         <div className="map-stage">
           <div className="bank-diagram-2d">
@@ -268,7 +263,6 @@ const App: React.FC = () => {
         </div>
       </main>
 
-      {/* Compliance Sidebar Overlay */}
       <AnimatePresence>
         {showCompliance && (
           <motion.div 
@@ -320,7 +314,6 @@ const App: React.FC = () => {
         )}
       </AnimatePresence>
 
-      {/* Footer Interface */}
       <footer className="cyber-footer">
         <div className="footer-section log-section">
           <div className="terminal-log">
