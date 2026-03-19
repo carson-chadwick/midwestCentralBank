@@ -24,7 +24,7 @@ const complianceGroups = [
     name: 'Operational Resilience',
     icon: <Radar size={22} />,
     section: 'roof',
-    x: 400, y: 40,
+    x: 400, y: 60,
     requirements: ['NIST-RECOVERY', 'NIST-ID.RA']
   },
   {
@@ -76,23 +76,36 @@ const Bank2DMap = ({
     <div className="bank-blueprint-container">
       <div className="blueprint-grid" />
       
-      <svg viewBox="0 0 800 500" className="bank-svg-map">
-        {/* 1. Operational Resilience (Roof + Antenna) */}
+      <svg viewBox="20 -20 860 480" className="bank-svg-map">
+        {/* 1. Operational Resilience (Roof + Satellite Dish) */}
         <g className={`arch-group ${activeSection === 'roof' ? 'highlight' : ''}`}>
           <polygon points="400,50 100,150 700,150" className="arch-part" />
           <rect x="120" y="150" width="560" height="40" className="arch-part" />
           {/* Building Label */}
-          <text x="400" y="175" textAnchor="middle" fill="currentColor" style={{ fontSize: '14px', fontWeight: 'bold', letterSpacing: '2px', opacity: 0.8 }} className="arch-part">MIDWEST CENTRAL BANK</text>
-          {/* Antenna */}
-          <line x1="400" y1="50" x2="400" y2="10" className="arch-part" />
-          <circle cx="400" cy="10" r="3" className="arch-part" />
-          {/* Radar Waves */}
-          {[20, 35, 50].map((r, i) => (
-            <path 
+          <text x="400" y="176" textAnchor="middle" fill="currentColor" style={{ fontSize: '18px', fontWeight: '800', letterSpacing: '4px', opacity: 0.9 }} className="arch-part">MIDWEST CENTRAL BANK</text>
+          
+          {/* Satellite Dish Mount */}
+          <line x1="400" y1="50" x2="400" y2="30" className="arch-part" />
+          {/* Satellite Dish (Parabola) */}
+          <path 
+            d="M 360,20 Q 400,60 440,20" 
+            className="arch-part" 
+            fill="none" 
+            transform="rotate(-20, 400, 40)"
+          />
+          {/* Signal Transmitter */}
+          <line x1="407" y1="33" x2="425" y2="5" className="arch-part" />
+          <circle cx="425" cy="5" r="3" className="arch-part" />
+          
+          {/* Scanning Beams (Circular Signal) */}
+          {[10, 25, 40].map((r, i) => (
+            <circle 
               key={i}
-              d={`M ${400-r},${10-r/2} A ${r},${r} 0 0 1 ${400+r},${10-r/2}`}
-              className={`arch-part ${activeSection === 'roof' ? 'pulse-slow' : ''}`}
+              cx="425" cy="5" r={r}
+              className={`arch-part ${activeSection === 'roof' ? 'pulse-fast' : ''}`}
               fill="none"
+              strokeDasharray="4 4"
+              opacity={0.5}
             />
           ))}
         </g>
@@ -153,7 +166,7 @@ const Bank2DMap = ({
         {/* 5. Data Privacy (ATM outside bank) */}
         <g className={`arch-group ${activeSection === 'archive' ? 'highlight' : ''}`}>
           {/* ATM Label */}
-          <text x="120" y="270" textAnchor="middle" fill="currentColor" style={{ fontSize: '12px', fontWeight: 'bold', opacity: 0.6 }} className="arch-part">ATM</text>
+          <text x="120" y="270" textAnchor="middle" fill="currentColor" style={{ fontSize: '14px', fontWeight: 'bold', opacity: 0.8 }} className="arch-part">ATM</text>
           {/* ATM Body */}
           <rect x="90" y="280" width="60" height="110" className="arch-part" />
           {/* Screen */}
