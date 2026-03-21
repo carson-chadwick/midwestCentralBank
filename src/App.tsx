@@ -3,8 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   X,
   Activity,
-  Cpu,
-  Database,
   ClipboardList,
   AlertTriangle,
   History,
@@ -21,7 +19,7 @@ import './App.css';
 const complianceGroups = [
   {
     id: 'lifecycle',
-    name: 'System Lifecycle Security',
+    name: 'End of Support Systems',
     icon: <Radar size={22} />,
     section: 'roof',
     x: 400, y: 55,
@@ -49,7 +47,7 @@ const complianceGroups = [
     icon: <ShieldAlert size={22} />,
     section: 'foundation',
     x: 400, y: 420,
-    requirements: ['NIST-RECOVERY', 'NIST-ID.RA']
+    requirements: ['NIST-RC.RP', 'NIST-ID.RA']
   },
   {
     id: 'privacy',
@@ -174,6 +172,18 @@ const Bank2DMap = ({
           <rect x="102" y="335" width="36" height="15" className="arch-part" />
           <line x1="102" y1="365" x2="138" y2="365" className="arch-part" />
           <rect x="110" y="362" width="20" height="6" className="arch-part" />
+          
+          {/* Leaking Data (PII, SSN, PIN) */}
+          {[
+            { label: '[PII]', delay: 0 },
+            { label: '[SSN]', delay: 1 },
+            { label: '[PIN]', delay: 2 }
+          ].map((item, i) => (
+            <g key={i} className="data-record" style={{ animationDelay: `${item.delay}s` } as any}>
+              <rect x="102" y="365" width="36" height="10" rx="1" className="arch-part" />
+              <text x="120" y="372" textAnchor="middle" style={{ fontSize: '6px', fill: 'currentColor', fontWeight: 'bold' }}>{item.label}</text>
+            </g>
+          ))}
         </g>
 
         {/* Interactive Primary Nodes */}
@@ -314,34 +324,6 @@ const App: React.FC = () => {
         )}
       </AnimatePresence>
 
-      <footer className="cyber-footer">
-        <div className="footer-section log-section">
-          <div className="terminal-log">
-            <div className="log-line">{'>'} {hoveredGroup ? `AUDITING_SECTOR: ${complianceGroups.find(g => g.id === hoveredGroup)?.name}` : 'SCANNING_REGULATORY_ENVIRONMENT...'}</div>
-            <div className="log-line">{'>'} COMPLIANCE_STATUS: [CRITICAL_FAILURE]</div>
-          </div>
-        </div>
-
-        <div className="footer-section progress-section">
-          <div className="scan-progress-container">
-            <div className="progress-text">TOTAL_COMPLIANCE_GAP: {scanProgress.toFixed(1)}%</div>
-            <div className="progress-track">
-              <motion.div 
-                className="progress-fill" 
-                animate={{ width: `${scanProgress}%` }}
-                transition={{ duration: 0.5 }}
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="footer-section status-section">
-          <div className="data-stream">
-            <div className="stream-item"><Cpu size={14} /> SCANNER: <span className="green">UP</span></div>
-            <div className="stream-item"><Database size={14} /> ARCHIVE: <span className="green">ONLINE</span></div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };

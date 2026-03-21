@@ -69,7 +69,7 @@ export const vulnerabilities: Vulnerability[] = [
     impact: "Risk of unrecoverable data loss in a total-system compromise scenario, leading to prolonged service outages.",
     remediation: "Establish an air-gapped backup infrastructure and perform regular 'clean-room' restoration testing.",
     weight: 20,
-    complianceID: ["NIST-RECOVERY"],
+    complianceID: ["NIST-RC.RP"],
     location: { x: 25, y: 25 }
   }
 ];
@@ -81,7 +81,7 @@ export const complianceChecklist: ComplianceReq[] = [
   { id: "GLBA-SAFEGUARD", standard: "GLBA", name: "Safeguards Rule", description: "The 2024/2025 updates require encryption of all Non-Public Information (NPI) both at rest (stored on disks) and in transit." },
   { id: "GLBA-PRIVACY", standard: "GLBA", name: "Privacy Rule", description: "Manual opt-out processing between modern and legacy systems creates a significant risk of non-compliant third-party data sharing." },
   { id: "GLBA-PRETEXT", standard: "GLBA", name: "Pretexting Provision", description: "Relying on 'Security Questions' (KBA), are easily defeated by social engineering groups like Fin7." },
-  { id: "NIST-RECOVERY", standard: "NIST CSF 2.0", name: "Recovery Planning", description: "Recovery processes are tested and maintained to ensure timely restoration." },
+  { id: "NIST-RC.RP", standard: "NIST CSF 2.0", name: "Recovery Planning", description: "Legacy architecture prevents the bank from meeting timely restoration requirements." },
   { id: "NIST-PR.AC", standard: "NIST CSF 2.0", name: "Access Control", description: "Access to physical and logical assets is limited and managed." },
-  { id: "NIST-ID.RA", standard: "NIST CSF 2.0", name: "Risk Assessment", description: "Organizational risks are identified and assessed periodically." }
+  { id: "NIST-ID.RA", standard: "NIST CSF 2.0", name: "Risk Assessment", description: "Current periodic assessments are ineffective because legacy logs cannot support modern threat detection." }
 ];
