@@ -20,9 +20,9 @@ const complianceGroups = [
   {
     id: 'core',
     name: 'Core Banking System',
-    icon: <Radar size={22} />,
-    section: 'roof',
-    x: 400, y: 55,
+    icon: <EyeOff size={22} />,
+    section: 'archive',
+    x: 120, y: 340,
     requirements: ['CORE-SYSTEM']
   },
   {
@@ -52,9 +52,9 @@ const complianceGroups = [
   {
     id: 'monitoring',
     name: 'Monitoring',
-    icon: <EyeOff size={22}  />,
-    section: 'archive',
-    x: 120, y: 340,
+    icon: <Radar size={22} />,
+    section: 'roof',
+    x: 400, y: 55,
     requirements: ['MONITORING']
   }
 ];
