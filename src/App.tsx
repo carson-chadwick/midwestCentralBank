@@ -18,44 +18,44 @@ import './App.css';
 // 1. Consolidated Compliance Categories
 const complianceGroups = [
   {
-    id: 'lifecycle',
-    name: 'End of Support Systems',
+    id: 'core',
+    name: 'Core Banking System',
     icon: <Radar size={22} />,
     section: 'roof',
     x: 400, y: 55,
-    requirements: ['PCI-6.3']
+    requirements: ['CORE-SYSTEM']
   },
   {
-    id: 'identity',
-    name: 'Identity Access Control',
+    id: 'endpoints',
+    name: 'Endpoints & Directory',
     icon: <UserCheck size={22} />,
     section: 'pillars',
     x: 620, y: 290,
-    requirements: ['PCI-8.4', 'GLBA-PRETEXT', 'NIST-PR.AC']
+    requirements: ['ENDPOINTS-DIR']
   },
   {
     id: 'encryption',
-    name: 'Encryption & Cryptography',
+    name: 'Data & Encryption',
     icon: <KeyRound size={24} />,
     section: 'vault',
     x: 400, y: 305,
-    requirements: ['PCI-3.5', 'GLBA-SAFEGUARD']
+    requirements: ['DATA-ENCRYPTION']
   },
   {
-    id: 'resilience',
-    name: 'Operational Resilience',
+    id: 'backups',
+    name: 'Backups',
     icon: <ShieldAlert size={22} />,
     section: 'foundation',
     x: 400, y: 420,
-    requirements: ['NIST-RC.RP', 'NIST-ID.RA']
+    requirements: ['BACKUPS']
   },
   {
-    id: 'privacy',
-    name: 'Data Privacy Governance',
-    icon: <EyeOff size={22} />,
+    id: 'monitoring',
+    name: 'Monitoring',
+    icon: <EyeOff size={22}  />,
     section: 'archive',
     x: 120, y: 340,
-    requirements: ['GLBA-PRIVACY']
+    requirements: ['MONITORING']
   }
 ];
 
@@ -299,7 +299,6 @@ const App: React.FC = () => {
                       {group.icon}
                       <h4>{group.name}</h4>
                     </div>
-                    <div className="status-badge">NON-COMPLIANT</div>
                   </div>
                   
                   <div className="nested-requirements">
@@ -307,11 +306,6 @@ const App: React.FC = () => {
                       const req = complianceChecklist.find(r => r.id === reqId);
                       return req ? (
                         <div key={reqId} className="requirement-detail">
-                          <div className="req-header">
-                            <span className="req-id">{req.id}</span>
-                            <span className="req-std">{req.standard}</span>
-                          </div>
-                          <div className="req-name">{req.name}</div>
                           <p className="req-desc">{req.description}</p>
                         </div>
                       ) : null;

@@ -14,74 +14,102 @@ export interface Vulnerability {
 
 export interface ComplianceReq {
   id: string;
-  standard: string;
   name: string;
   description: string;
 }
 
 export const vulnerabilities: Vulnerability[] = [
   {
-    id: "vault-1",
-    domain: "Data Protection",
-    score: "1.6/5",
-    title: "Cryptographic Core Failure",
+    id: "core-1",
+    domain: "Core Banking System",
+    score: "1.0/5",
+    title: "End-of-Life OS/400 Core",
     severity: "CRITICAL",
-    description: "The bank's internal data flows and storage rely on deprecated 3DES encryption standards, which are susceptible to modern decryption attacks.",
-    impact: "Potential unauthorized exposure of Non-Public Information (NPI) both in transit and at rest across the monolithic core.",
-    remediation: "Upgrade to AES-256 modular encryption and transition to an API-based architecture for secure data handling.",
-    weight: 30,
-    complianceID: ["PCI-3.5", "GLBA-SAFEGUARD", "GLBA-PRIVACY"],
-    location: { x: 75, y: 70 } // Moved from center to bottom-right corner
-  },
-  {
-    id: "terminal-1",
-    domain: "Identity Access Control",
-    score: "2.0/5",
-    title: "Privileged Access Vulnerability",
-    severity: "HIGH",
-    description: "Administrative accounts on the legacy core utilize shared, static credentials without Multi-Factor Authentication (MFA).",
-    impact: "Unrestricted lateral movement and unauthorized privilege escalation across critical banking systems.",
-    remediation: "Implement a centralized Identity Gateway (MFA) and enforce unique, rotating credentials for all privileged accounts.",
-    weight: 15,
-    complianceID: ["PCI-8.4", "GLBA-PRETEXT"],
-    location: { x: 20, y: 70 }
-  },
-  {
-    id: "perimeter-1",
-    domain: "Threat Detection",
-    score: "1.5/5",
-    title: "Detection & Response Gap",
-    severity: "CRITICAL",
-    description: "Lack of behavioral analytics and endpoint visibility on legacy servers prevents timely identification of ransomware activity.",
-    impact: "Increased risk of widespread operational disruption and failure to meet regulatory 30-day breach reporting mandates.",
-    remediation: "Deploy endpoint detection systems and isolate legacy core components within a high-security network segment (VLAN).",
+    description: "The infrastructure centers on an IBM iSeries (AS/400) running OS/400. This platform is End-of-Life, lacking security patches and support.",
+    impact: "Architecturally incapable of running modern EDR agents, rendering behavioral ransomware detection impossible.",
+    remediation: "Replace or modernize the legacy core to a supported platform capable of running contemporary security tooling.",
     weight: 35,
-    complianceID: ["PCI-6.3"],
-    location: { x: 80, y: 30 }
+    complianceID: ["CORE-SYSTEM"],
+    location: { x: 50, y: 15 }
   },
   {
-    id: "archive-1",
-    domain: "Recovery Readiness",
-    score: "3.0/5",
-    title: "Backup Isolation Deficit",
-    severity: "MEDIUM",
-    description: "Backup systems are not physically or logically isolated from the production core, leaving them vulnerable to ransomware encryption.",
-    impact: "Risk of unrecoverable data loss in a total-system compromise scenario, leading to prolonged service outages.",
-    remediation: "Establish an air-gapped backup infrastructure and perform regular 'clean-room' restoration testing.",
+    id: "endpoints-1",
+    domain: "Endpoints & Directory",
+    score: "1.2/5",
+    title: "Legacy OS & Flat Directory",
+    severity: "CRITICAL",
+    description: "Branch workstations (Windows 7) and servers (Server 2008 R2) have been EOL since 2020. The Active Directory environment is entirely flat.",
+    impact: "A single compromised service account allows unrestricted lateral movement across the entire domain without privilege boundaries.",
+    remediation: "Upgrade all endpoints to supported OS versions and implement Organizational Unit (OU) segmentation with Tiered Administration.",
+    weight: 25,
+    complianceID: ["ENDPOINTS-DIR"],
+    location: { x: 75, y: 55 }
+  },
+  {
+    id: "encryption-1",
+    domain: "Data & Encryption",
+    score: "1.6/5",
+    title: "Deprecated Cryptographic Standards",
+    severity: "CRITICAL",
+    description: "Customer data is encrypted at rest using Triple-DES (3DES), which is deprecated and no longer recognized as 'Strong Cryptography'.",
+    impact: "Fundamental cryptographic failure inherent to the legacy architecture rather than a configuration oversight.",
+    remediation: "Transition to AES-256 encryption standards for all Non-Public Information (NPI) at rest and in transit.",
     weight: 20,
-    complianceID: ["NIST-RC.RP"],
-    location: { x: 25, y: 25 }
+    complianceID: ["DATA-ENCRYPTION"],
+    location: { x: 50, y: 65 }
+  },
+  {
+    id: "backups-1",
+    domain: "Backups",
+    score: "2.5/5",
+    title: "Non-Isolated Backup Infrastructure",
+    severity: "HIGH",
+    description: "Backup systems utilize a network-attached NAS device situated on the same flat network segment as production.",
+    impact: "No logical or physical air gap exists, making backup data susceptible to simultaneous encryption during a ransomware event.",
+    remediation: "Implement an air-gapped backup solution and off-site immutable storage to ensure restoration capabilities.",
+    weight: 15,
+    complianceID: ["BACKUPS"],
+    location: { x: 50, y: 85 }
+  },
+  {
+    id: "monitoring-1",
+    domain: "Monitoring",
+    score: "1.0/5",
+    title: "Absence of Behavioral Detection",
+    severity: "CRITICAL",
+    description: "The environment lacks SIEM and IDS capabilities, relying exclusively on legacy signature-based antivirus.",
+    impact: "System cannot detect behavioral indicators of compromise, such as unusual file encryption rates or C2 callback patterns.",
+    remediation: "Deploy a modern SIEM/SOC solution and transition to behavioral-based endpoint protection.",
+    weight: 20,
+    complianceID: ["MONITORING"],
+    location: { x: 15, y: 75 }
   }
 ];
 
 export const complianceChecklist: ComplianceReq[] = [
-  { id: "PCI-8.4", standard: "PCI DSS v4.0.1", name: "MFA Requirement", description: "MCB lacks MFA for the Cardholder Data Environment (CDE) due to legacy terminal architectural limitations, representing a critical control failure." },
-  { id: "PCI-3.5", standard: "PCI DSS v4.0.1", name: "Strong Cryptography", description: "Legacy databases use outdated encryption standards (e.g., Triple-DES) that no longer meet the 'Strong Cryptography' definition." },
-  { id: "PCI-6.3", standard: "PCI DSS v4.0.1", name: "Security Patching", description: "Since systems are 12+ years old, they are 'End-of-Life' (EOL). This violates the mandate to protect against known vulnerabilities, as no new patches exist for these servers." },
-  { id: "GLBA-SAFEGUARD", standard: "GLBA", name: "Safeguards Rule", description: "The 2024/2025 updates require encryption of all Non-Public Information (NPI) both at rest (stored on disks) and in transit." },
-  { id: "GLBA-PRIVACY", standard: "GLBA", name: "Privacy Rule", description: "Manual opt-out processing between modern and legacy systems creates a significant risk of non-compliant third-party data sharing." },
-  { id: "GLBA-PRETEXT", standard: "GLBA", name: "Pretexting Provision", description: "Relying on 'Security Questions' (KBA), are easily defeated by social engineering groups like Fin7." },
-  { id: "NIST-RC.RP", standard: "NIST CSF 2.0", name: "Recovery Planning", description: "Legacy architecture prevents the bank from meeting timely restoration requirements." },
-  { id: "NIST-PR.AC", standard: "NIST CSF 2.0", name: "Access Control", description: "Access to physical and logical assets is limited and managed." },
-  { id: "NIST-ID.RA", standard: "NIST CSF 2.0", name: "Risk Assessment", description: "Current periodic assessments are ineffective because legacy logs cannot support modern threat detection." }
+  { 
+    id: "CORE-SYSTEM", 
+    name: "Core Banking System", 
+    description: "The core infrastructure is an IBM iSeries (AS/400) running OS/400. This platform is End-of-Life, lacking patches and support. It is architecturally incapable of running modern EDR agents like CrowdStrike Falcon, making behavioral ransomware detection impossible." 
+  },
+  { 
+    id: "ENDPOINTS-DIR", 
+    name: "Endpoints & Directory", 
+    description: "Workstations and servers utilize Windows 7 and Server 2008 R2, both EOL since 2020. The Active Directory environment is flat, lacking segmentation. A single compromised service account allows unrestricted lateral movement across the entire domain." 
+  },
+  { 
+    id: "DATA-ENCRYPTION", 
+    name: "Data & Encryption", 
+    description: "Customer data and cardholder information is encrypted at rest using Triple-DES — 3DES. NIST deprecated 3DES in 2023. PCI DSS v4.0.1 no longer recognizes it as 'Strong Cryptography' under Requirement 3.5. This isn't a configuration issue — it's a fundamental cryptographic failure baked into the legacy system." 
+  },
+  { 
+    id: "BACKUPS", 
+    name: "Backups", 
+    description: "Backup systems run on a network-attached NAS device sitting on the same flat network segment as production. There is no air gap. In a ransomware scenario, the backup is encrypted alongside everything else — which is exactly what happened at BancoEstado. Only 6% of branches restored on Day 1." 
+  },
+  { 
+    id: "MONITORING", 
+    name: "Monitoring", 
+    description: "No SIEM. No IDS. Endpoint protection is legacy signature-based AV. That means MCB cannot detect behavioral indicators of compromise — things like abnormal file encryption rates, unusual lateral movement between hosts, or C2 callback patterns. If REvil walked in today, MCB would not see it." 
+  }
 ];
