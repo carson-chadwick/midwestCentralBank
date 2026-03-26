@@ -247,7 +247,7 @@ const App: React.FC = () => {
 
       <header className="cyber-header">
         <div className="glitch-wrapper">
-          <h1 className="glitch" data-text="MIDWEST CENTRAL BANK">MIDWEST CENTRAL BANK Audit</h1>
+          <h1 className="glitch" data-text="MIDWEST CENTRAL BANK">MIDWEST CENTRAL BANK AUDIT</h1>
         </div>
         <div className="header-actions">
           <button className="hud-btn" onClick={() => setShowCompliance(!showCompliance)}>
@@ -269,7 +269,6 @@ const App: React.FC = () => {
               onSelect={handleMapSelect} 
             />
           </div>
-          <div className="instruction">SELECT AN ARCHITECTURAL SECTOR TO VIEW CONSOLIDATED COMPLIANCE GAPS</div>
         </div>
       </main>
 
