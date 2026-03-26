@@ -247,7 +247,7 @@ const App: React.FC = () => {
 
       <header className="cyber-header">
         <div className="glitch-wrapper">
-          <h1 className="glitch" data-text="MIDWEST CENTRAL BANK">MIDWEST CENTRAL BANK</h1>
+          <h1 className="glitch" data-text="MIDWEST CENTRAL BANK">MIDWEST CENTRAL BANK Audit</h1>
         </div>
         <div className="header-actions">
           <button className="hud-btn" onClick={() => setShowCompliance(!showCompliance)}>
@@ -260,7 +260,7 @@ const App: React.FC = () => {
         </div>
       </header>
 
-      <main className="stage-wrapper">
+      <main className={`stage-wrapper ${showCompliance ? 'shifted' : ''}`}>
         <div className="map-stage">
           <div className="bank-diagram-2d">
             <Bank2DMap 
@@ -282,7 +282,7 @@ const App: React.FC = () => {
             className="compliance-sidebar"
           >
             <div className="sidebar-header">
-              <h3>REGULATORY_SCORECARD</h3>
+              <h3>Key Vulnerabilities</h3>
               <button onClick={() => setShowCompliance(false)}><X size={20}/></button>
             </div>
             <div className="checklist">
