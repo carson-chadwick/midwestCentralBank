@@ -239,6 +239,16 @@ const App: React.FC = () => {
     }, 100);
   };
 
+  const handleHover = (id: string | null) => {
+    setHoveredGroup(id);
+    if (id && showCompliance && scrollRefs.current[id]) {
+      scrollRefs.current[id]?.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'center' 
+      });
+    }
+  };
+
   return (
     <div className="container cyber-theme">
       <div className="scanline" />
@@ -265,7 +275,7 @@ const App: React.FC = () => {
           <div className="bank-diagram-2d">
             <Bank2DMap 
               hoveredGroup={hoveredGroup} 
-              onHover={setHoveredGroup} 
+              onHover={handleHover} 
               onSelect={handleMapSelect} 
             />
           </div>
