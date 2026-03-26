@@ -251,7 +251,7 @@ const App: React.FC = () => {
         </div>
         <div className="header-actions">
           <button className="hud-btn" onClick={() => setShowCompliance(!showCompliance)}>
-            <ClipboardList size={18} /> REGULATORY_SCORECARD
+            <ClipboardList size={18} /> Key Vulnerabilities
           </button>
           <div className="system-status">
             <Activity size={16} className="blink-fast" />

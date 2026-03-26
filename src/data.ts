@@ -112,7 +112,7 @@ export const complianceChecklist: ComplianceReq[] = [
     id: "ENDPOINTS-DIR",
     name: "Endpoints & Directory",
     description:
-      "• Branch workstations running Windows 7 and Server 2008 R2\n• Supports branch operations and centralized network directory services\n• End-of-Life and no segmentation",
+      "• Workstations running Windows 7 and Server 2008 R2\n• Supports operations and centralized network directory\n• End-of-Life and no segmentation",
   },
   {
     id: "DATA-ENCRYPTION",
@@ -130,6 +130,6 @@ export const complianceChecklist: ComplianceReq[] = [
     id: "MONITORING",
     name: "Monitoring",
     description:
-      "• Endpoint protection using legacy signature-based antivirus.\n• Block known malware using static definitions.\n• Lacks SIEM/IDS; cannot detect behavioral indicators.",
+      "• Endpoint protection using legacy antivirus.\n• Block known malware using static definitions.\n• Lacks SIEM/IDS; cannot detect behavioral indicators.",
   },
 ];

@@ -125,7 +125,7 @@
 }
 
 .stage-wrapper.shifted {
-  margin-right: 400px;
+  margin-right: 550px;
 }
 
 .map-stage {
@@ -456,7 +456,7 @@
   right: 0;
   top: 0;
   bottom: 0;
-  width: 400px;
+  width: 550px;
   background: rgba(10, 10, 11, 0.98);
   border-left: 1px solid var(--neon-blue);
   z-index: 1000;
@@ -492,7 +492,7 @@
 .checklist-item.group-card {
   display: flex;
   flex-direction: column;
-  padding: 1.5rem;
+  padding: 1.2rem;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border-left-width: 4px;
   background: rgba(255, 255, 255, 0.02);
@@ -509,9 +509,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding-bottom: 0.8rem;
+  padding-bottom: 0.6rem;
 }
 
 .group-icon-title {
@@ -530,7 +530,7 @@
 .nested-requirements {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.2rem;
 }
 
 .requirement-detail {
@@ -567,9 +567,9 @@
 }
 
 .req-desc {
-  font-size: 0.7rem;
-  color: #999;
-  line-height: 1.4;
+  font-size: 0.85rem;
+  color: #ccc;
+  line-height: 1.5;
   white-space: pre-line;
 }
 
