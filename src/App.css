@@ -487,7 +487,7 @@
   border-left: 3px solid #333;
 }
 
-.checklist-item.failed { border-color: var(--neon-red); }
+.checklist-item.failed { border-left-color: #333; }
 
 .checklist-item.group-card {
   display: flex;
@@ -498,10 +498,10 @@
   background: rgba(255, 255, 255, 0.02);
 }
 
+.checklist-item.group-card:hover,
 .checklist-item.group-card.active {
   background: rgba(255, 0, 60, 0.08);
   border-left-color: var(--neon-red);
-  transform: translateX(-5px);
   box-shadow: -10px 0 20px rgba(255, 0, 60, 0.1);
 }
 
